@@ -1,6 +1,6 @@
 {
-	"id" : "template",
-	"name" : "Template",
+	"id" : "d2l",
+	"name" : "D2l",
 	"description" : "Plugin template pour la création de plugin",
 	"licence" : "AGPL",
 	"author" : "Jeedom SAS",
@@ -9,8 +9,8 @@
 	"hasDependency" : false,
 	"hasOwnDeamon" : false,
 	"maxDependancyInstallTime" : 0,
-	"changelog" : "https://jeedom.github.io/plugin-template/#language#/changelog",
-	"documentation" : "https://jeedom.github.io/plugin-template/#language#/",
+	"changelog" : "https://jeedom.github.io/plugin-d2l/#language#/changelog",
+	"documentation" : "https://jeedom.github.io/plugin-d2l/#language#/",
 	"link" : {
 		"forum":"Lien vers le forum",
 		"video" : "Lien vers une video"
