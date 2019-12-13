@@ -22,7 +22,110 @@ require_once __DIR__  . '/../../../../core/php/core.inc.php';
 class d2l extends eqLogic {
     /*     * *************************Attributs****************************** */
 
+	public static function getAPIKey() {
+		$login = config::byKey('login', 'd2l', 0);
+		$password = config::byKey('password', 'd2l', 0);
+		if ($login == 0) {
+		}
+		if ($password == 0) {
+		}
+		$request = new com_http('https://consospyapi.sicame.io/api/D2L/Security/GetAPIKey');
+		$request->setPost(array("login"=>$login, "password"=>$password);
+		$result = json_decode($request->exec());
+		config::save('apiKey', $result->apiKey, 'd2l'); 
+	}
 
+	public static function getD2Ls() {
+		$apiKey = config::byKey('apiKey', 'd2l', 0);
+		if ($apiKey == 0) {
+		}
+		$request = new com_http('https://consospyapi.sicame.io/api/D2L/D2Ls');
+		$request->setHeader(array("apiKey"=>$apiKey);
+		$result = json_decode($request->exec());
+		log::add('d2l', 'debug', 'Retour getD2Ls ' . print_r($result,true));
+		foreach($result as $key => $value ) {
+			log::add('d2l', 'debug', 'Retour getD2Ls ' . $key . ' valeur ' . $value);
+			$d2l = self::byLogicalId($value, 'd2l');
+			if (!is_object($d2l)) {
+				log::add('d2l', 'info', 'Equipement n existe pas, création ' . $value);
+				$d2l = new d2l();
+				$d2l->setEqType_name('d2l');
+				$d2l->setLogicalId($value);
+				$d2l->setName($value);
+				$d2l->setIsEnable(true);
+				$d2l->save();
+				$d2l->setConfiguration('d2l', $value);
+				$d2l->save();
+				//log::add('d2l', 'info',   print_r($d2l,true));
+			}
+		}
+	}
+
+	/*public static function getTypeContrat($id) {
+		$apiKey = config::byKey('apiKey', 'd2l', 0);
+		if ($apiKey == 0) {
+		}
+		$request = new com_http('https://consospyapi.sicame.io/api/D2L/D2Ls/$id/TypeContrat');
+		$request->setHeader(array("apiKey"=>$apiKey);
+		$result = json_decode($request->exec());
+		log::add('d2l', 'debug', 'Retour getTypeContrat ' . print_r($result,true));
+		foreach($result as $key => $value ) {
+			log::add('d2l', 'debug', 'Retour getTypeContrat ' . $key . ' valeur ' . $value);
+			$d2l = self::byLogicalId($value, 'd2l');
+			if (!is_object($d2l)) {
+				log::add('d2l', 'info', 'Equipement n existe pas, création ' . $value);
+				$d2l = new d2l();
+				$d2l->setEqType_name('d2l');
+				$d2l->setLogicalId($value);
+				$d2l->setName($value);
+				$d2l->setIsEnable(true);
+				$d2l->save();
+				$d2l->setConfiguration('d2l', $value);
+				$d2l->save();
+				//log::add('d2l', 'info',   print_r($d2l,true));
+			}
+		}
+	}*/
+
+	public static function getLastIndexes($id) {
+		$apiKey = config::byKey('apiKey', 'd2l', 0);
+		if ($apiKey == 0) {
+		}
+		$request = new com_http('https://consospyapi.sicame.io/api/D2L/D2Ls/$id/LastIndexes');
+		$request->setHeader(array("apiKey"=>$apiKey);
+		$result = json_decode($request->exec());
+		log::add('d2l', 'debug', 'Retour getLastIndexes ' . print_r($result,true));
+		$d2l = self::byLogicalId($value, 'd2l');
+		$timestamp = date("Y-m-d H:i:s", $location['timestamp'] / 1000);
+		foreach($result as $key => $value ) {
+			log::add('d2l', 'debug', 'Retour getLastIndexes ' . $key . ' valeur ' . $value);
+			$d2lCmd = d2lCmd::byEqLogicIdAndLogicalId($d2l->getId(),$key);
+			if (!is_object($d2lCmd)) {
+				$d2lCmd = new d2lCmd();
+				$d2lCmd->setEqLogic_id($d2l->getId());
+				$d2lCmd->setEqType('d2l');
+				$d2lCmd->setLogicalId($key);
+				$d2lCmd->setName( $key );
+				$d2lCmd->setType('info');
+				if(is_numeric($value)){
+					$d2lCmd->setSubType('numeric');
+				}else{	
+					$d2lCmd->setSubType('other');
+				}
+				$d2lCmd->save();
+			}
+			$d2l->checkAndUpdateCmd($key, $value, $timestamp)
+		}
+	}
+
+	/*public static function getLastsCurrents($id) {
+	}
+
+	public static function getConfigurationKey($id) {
+	}*/
+	
+	
+	
 
     /*     * ***********************Methode static*************************** */
 
