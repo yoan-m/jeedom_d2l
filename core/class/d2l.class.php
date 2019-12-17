@@ -23,8 +23,8 @@ class d2l extends eqLogic {
     /*     * *************************Attributs****************************** */
 
 	public static function getAPIKey() {
-		$login = config::byKey('login', 'd2l', 0);
-		$password = config::byKey('password', 'd2l', 0);
+		$login = config::byKey('consospy_login', 'd2l', 0);
+		$password = config::byKey('consospy_password', 'd2l', 0);
 		if ($login == 0) {
 		}
 		if ($password == 0) {
@@ -130,11 +130,16 @@ class d2l extends eqLogic {
     /*     * ***********************Methode static*************************** */
 
     /*
-     * Fonction exécutée automatiquement toutes les minutes par Jeedom
+     * Fonction exécutée automatiquement toutes les minutes par Jeedom*/
       public static function cron() {
-
+		try {
+			$result = self::getD2Ls();
+		} catch (Exception $e) {
+			self::getAPIKey();
+			$result = self::getD2Ls();
+		}
       }
-     */
+     
 
 
     /*
