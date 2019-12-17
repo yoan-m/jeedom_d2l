@@ -11,10 +11,10 @@ $eqLogics = eqLogic::byType($plugin->getId());
    <div class="col-xs-12 eqLogicThumbnailDisplay">
   <legend><i class="fas fa-cog"></i>  {{Gestion}}</legend>
   <div class="eqLogicThumbnailContainer">
-      <div class="cursor eqLogicAction logoPrimary" data-action="add">
-        <i class="fas fa-plus-circle"></i>
+      <div class="cursor eqLogicAction logoPrimary" id="bt_synchronize" data-action="synchronize">
+        <i class="fas fa-sync"></i>
         <br>
-        <span>{{Ajouter}}</span>
+        <span>{{Synchroniser}}</span>
     </div>
       <div class="cursor eqLogicAction logoSecondary" data-action="gotoPluginConf">
       <i class="fas fa-wrench"></i>
@@ -22,7 +22,7 @@ $eqLogics = eqLogic::byType($plugin->getId());
     <span>{{Configuration}}</span>
   </div>
   </div>
-  <legend><i class="fas fa-table"></i> {{Mes templates}}</legend>
+  <legend><i class="fas fa-table"></i> {{Mes D2Ls}}</legend>
 	   <input class="form-control" placeholder="{{Rechercher}}" id="in_searchEqlogic" />
 <div class="eqLogicThumbnailContainer">
     <?php
@@ -106,10 +106,16 @@ foreach (jeeObject::all() as $object) {
 <a class="btn btn-success btn-sm cmdAction pull-right" data-action="add" style="margin-top:5px;"><i class="fa fa-plus-circle"></i> {{Commandes}}</a><br/><br/>
 <table id="table_cmd" class="table table-bordered table-condensed">
     <thead>
-        <tr>
-            <th>{{Nom}}</th><th>{{Type}}</th><th>{{Action}}</th>
-        </tr>
-    </thead>
+		<tr>
+			<th style="width: 50px;"> ID</th>
+			<th style="width: 230px;">{{Nom}}</th>
+			<th style="width: 110px;">{{Sous-Type}}</th>
+			<th>{{Valeur}}</th>
+			<th>{{Paramètres}}</th>
+			<th style="width: 300px;">{{Options}}</th>
+			<th style="width: 150px;"></th>
+		</tr>
+	</thead>
     <tbody>
     </tbody>
 </table>

@@ -5,7 +5,7 @@
 	"licence" : "AGPL",
 	"author" : "Jeedom SAS",
 	"require" : "3.2",
-	"category" : "programming",
+	"category" : "energy",
 	"hasDependency" : false,
 	"hasOwnDeamon" : false,
 	"maxDependancyInstallTime" : 0,

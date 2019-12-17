@@ -26,7 +26,9 @@ try {
     
     ajax::init();
 
-
+	if (init('action') == 'synchronize') {
+		ajax::success(d2l::synchronize());
+	 }
 
     throw new Exception(__('Aucune méthode correspondante à : ', __FILE__) . init('action'));
     /*     * *********Catch exeption*************** */
