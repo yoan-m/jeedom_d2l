@@ -93,12 +93,6 @@ foreach (jeeObject::all() as $object) {
 			<label class="checkbox-inline"><input type="checkbox" class="eqLogicAttr" data-l1key="isVisible" checked/>{{Visible}}</label>
 		</div>
 	</div>
-       <div class="form-group">
-        <label class="col-sm-3 control-label">{{d2l param 1}}</label>
-        <div class="col-sm-3">
-            <input type="text" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="city" placeholder="param1"/>
-        </div>
-    </div>
 </fieldset>
 </form>
 </div>
@@ -107,10 +101,8 @@ foreach (jeeObject::all() as $object) {
 <table id="table_cmd" class="table table-bordered table-condensed">
     <thead>
 		<tr>
-			<th style="width: 50px;"> ID</th>
 			<th style="width: 230px;">{{Nom}}</th>
 			<th style="width: 110px;">{{Sous-Type}}</th>
-			<th>{{Valeur}}</th>
 			<th>{{Paramètres}}</th>
 			<th style="width: 300px;">{{Options}}</th>
 			<th style="width: 150px;"></th>
@@ -126,4 +118,4 @@ foreach (jeeObject::all() as $object) {
 </div>
 
 <?php include_file('desktop', 'd2l', 'js', 'd2l');?>
-<?php include_file('core', 'plugin.d2l', 'js');?>
+<?php include_file('core', 'plugin.template', 'js');?>

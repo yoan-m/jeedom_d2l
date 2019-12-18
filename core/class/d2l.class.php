@@ -90,43 +90,23 @@ class d2l extends eqLogic {
 				$d2l = new d2l();
 				$d2l->setEqType_name('d2l');
 				$d2l->setLogicalId($value->idModule);
-				$d2l->setName($value->idModule);
+				if($value->labelModule){
+					$d2l->setName($value->labelModule);
+				}else {
+					$d2l->setName($value->idModule);
+				}
 				$d2l->setIsEnable(true);
 				$d2l->save();
-				$d2l->setConfiguration('d2l', $value->idModule);
-				$d2l->save();
+				//$d2l->setConfiguration('d2l', $value->idModule);
+				//$d2l->save();
 				//log::add('d2l', 'info',   print_r($d2l,true));
 			}
+			
           self::getLastIndexes($value->idModule);
 		}
 	}
 
-	/*public static function getTypeContrat($id) {
-		$apiKey = config::byKey('apiKey', 'd2l', 0);
-		if ($apiKey == 0) {
-		}
-		$request = new com_http('https://consospyapi.sicame.io/api/D2L/D2Ls/$id/TypeContrat');
-		$request->setHeader(array("apiKey"=>$apiKey);
-		$result = json_decode($request->exec());
-		log::add('d2l', 'debug', 'Retour getTypeContrat ' . print_r($result,true));
-		foreach($result as $key => $value ) {
-			log::add('d2l', 'debug', 'Retour getTypeContrat ' . $key . ' valeur ' . $value);
-			$d2l = self::byLogicalId($value, 'd2l');
-			if (!is_object($d2l)) {
-				log::add('d2l', 'info', 'Equipement n existe pas, création ' . $value);
-				$d2l = new d2l();
-				$d2l->setEqType_name('d2l');
-				$d2l->setLogicalId($value);
-				$d2l->setName($value);
-				$d2l->setIsEnable(true);
-				$d2l->save();
-				$d2l->setConfiguration('d2l', $value);
-				$d2l->save();
-				//log::add('d2l', 'info',   print_r($d2l,true));
-			}
-		}
-	}*/
-
+	
 	public static function getLastIndexes($id) {
 		$apiKey = config::byKey('apiKey', 'd2l', 0);
 		if ($apiKey == 0) {
@@ -169,21 +149,23 @@ class d2l extends eqLogic {
 		$eqLogics = self::byType('d2l');
 	    foreach ($eqLogics as $eqLogic) {
             try {
-				self::getLastIndexes($eqLogic->getId());
+				self::getLastIndexes($eqLogic->getLogicalId());
 			}catch (Exception $e) {
 			self::getAPIKey();
-			$result = self::getLastIndexes($eqLogic->getId());
+			$result = self::getLastIndexes($eqLogic->getLogicalId());
 			}
         }
       }
 	  
 	  public static function synchronize() {
+        $return = array();
 		try {
-			$result = self::getD2Ls();
+			self::getD2Ls();
 		} catch (Exception $e) {
 			self::getAPIKey();
-			$result = self::getD2Ls();
+			self::getD2Ls();
 		}
+        return $return;
       }
     
 
