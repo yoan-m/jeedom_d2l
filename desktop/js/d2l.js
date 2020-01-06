@@ -27,7 +27,7 @@ $('#bt_synchronize').off('click').on('click', function () {
       handleAjaxError(request, status, error);
     },
     success: function (data) {
-	  $('.eqLogicDisplayCard[data-eqLogic_id='+$('.eqLogicAttr[data-l1key=id]').value()+']').click();
+	  window.location.reload();
     }
   });
 });
